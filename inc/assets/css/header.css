@@ -1,0 +1,32 @@
+header#masthead {
+    padding: clamp(0.625rem, 0.5854rem + 0.1626vw, 0.75rem) 0;
+    background-color: #EBF3FF;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  header#masthead .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .home header#masthead {
+    background: rgba(15, 25, 31, 0.30);
+  }
+  header#masthead.sticky {
+    background-color: #EBF3FF;
+    z-index: 999;
+    top: 0;
+    position: sticky;
+}
+#primary-menu .menu-item a,
+.sticky .menu-item a {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 125%;
+  text-transform: uppercase;
+  color: var(--Black);
+}
+.home #primary-menu .menu-item a {
+  color: var(--White);
+}
