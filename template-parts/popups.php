@@ -14,14 +14,11 @@
         <div class="popup-content tg-modal">
             <span class="tg-modal__icon"><?php echo get_svg_icon('telegram'); ?></span>
             <h2 class="tg-modal__title"><?php echo esc_html__('Напишіть нам в телеграм', 'web'); ?></h2>
-            <p class="tg-modal__text"><?php echo esc_html__('Опишіть свою ситуацію — і отримайте швидку відповідь та порадою щодо вашої справи.', 'web'); ?></p>
+            <p class="tg-modal__text"><?php echo esc_html__('Опишіть свою ситуацію — відповімо швидко і підкажемо як діяти.', 'web'); ?></p>
             <div class="tg-modal__actions">
-                <a href="#" class="btn btn--gold open-popup" data-popup-id="form"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
-                <a href="https://t.me/" target="_blank" rel="noopener" class="btn btn--outline">
-                    <?php echo get_svg_icon('telegram'); ?>
-                    <span><?php echo esc_html__('Написати в Telegram', 'web'); ?></span>
-                </a>
-                <a href="tel:+380672870044" class="btn btn--gold-soft">
+                <a href="#" class="btn btn--gold btn--block open-popup" data-popup-id="form"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
+                <span class="tg-modal__or"><?php echo esc_html__('Якщо писати не зручно', 'web'); ?></span>
+                <a href="tel:+380672870044" class="btn btn--gold btn--block">
                     <?php echo get_svg_icon('phone'); ?>
                     <span><?php echo esc_html__('Зателефонувати', 'web'); ?></span>
                 </a>

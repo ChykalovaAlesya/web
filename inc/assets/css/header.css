@@ -93,7 +93,7 @@ header#masthead.sticky {
   left: 0;
   right: auto;
   top: calc(100% + 14px);
-  width: min(720px, 92vw);
+  width: min(300px, 92vw);
   background: var(--home-card, #111E2C);
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 16px;
@@ -123,23 +123,23 @@ header#masthead.sticky {
 .has-mega:hover > .mega-toggle .menu-arrow,
 .has-mega.is-open > .mega-toggle .menu-arrow { transform: rotate(180deg); }
 
-/* the dropdown is a self-contained card — neutralize the .container width/margins */
+/* the dropdown is a self-contained card — single column, neutralize .container */
 .mega-menu .mega-menu__inner {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px 40px;
+  grid-template-columns: 1fr;
+  gap: 22px;
   max-width: none;
   width: auto;
   margin: 0;
-  padding: 28px 32px;
+  padding: 24px 28px;
 }
 .mega-col__title {
-  margin: 0 0 16px;
-  font-size: 16px;
+  margin: 0 0 10px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--gold, #C9A86B);
+  color: var(--White, #fff);
 }
-.mega-col__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.mega-col__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .mega-col__list a {
   color: rgba(255, 255, 255, .78);
   text-decoration: none;
@@ -195,7 +195,9 @@ header#masthead.sticky {
   pointer-events: auto;
   border: 1px solid rgba(255, 255, 255, .12);
 }
-.header-search.is-open .header-search__toggle { order: 2; }
+/* keep the magnifier to the LEFT of the field when open (icon-inside look, per Figma) */
+.header-search.is-open { gap: 8px; }
+.header-search.is-open .header-search__toggle { order: 0; color: var(--gold, #C9A86B); }
 .header-search__field::placeholder { color: rgba(255, 255, 255, .5); }
 
 /* ---- Burger (mobile only) ---- */
