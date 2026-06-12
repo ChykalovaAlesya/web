@@ -85,22 +85,33 @@ header#masthead.sticky {
 .primary-menu .menu-arrow { width: 14px; height: 14px; transition: transform .25s ease; }
 .primary-menu .menu-arrow path { fill: currentColor; }
 
-/* ---- Mega dropdown ---- */
-.has-mega { position: static; }
+/* ---- Mega dropdown (contained card under «Послуги», per Figma) ---- */
+.has-mega { position: relative; }
 
 .mega-menu {
   position: absolute;
   left: 0;
-  right: 0;
-  top: 100%;
+  right: auto;
+  top: calc(100% + 14px);
+  width: min(720px, 92vw);
   background: var(--home-card, #111E2C);
-  border-top: 1px solid rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
   box-shadow: 0 24px 48px rgba(0, 0, 0, .45);
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
   transition: opacity .25s ease, transform .25s ease, visibility .25s;
   z-index: 950;
+}
+/* invisible bridge over the gap so hover doesn't drop between toggle and card */
+.mega-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -16px;
+  height: 16px;
 }
 .has-mega:hover .mega-menu,
 .has-mega:focus-within .mega-menu,
@@ -112,12 +123,15 @@ header#masthead.sticky {
 .has-mega:hover > .mega-toggle .menu-arrow,
 .has-mega.is-open > .mega-toggle .menu-arrow { transform: rotate(180deg); }
 
-.mega-menu__inner {
+/* the dropdown is a self-contained card — neutralize the .container width/margins */
+.mega-menu .mega-menu__inner {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  padding-top: 36px;
-  padding-bottom: 36px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 40px;
+  max-width: none;
+  width: auto;
+  margin: 0;
+  padding: 28px 32px;
 }
 .mega-col__title {
   margin: 0 0 16px;
