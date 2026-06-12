@@ -103,12 +103,13 @@ add_action( 'acf/init', function () {
 		'svc-clock'  => 'Годинник (svc-clock)',
 	);
 
-	/* ---- helpers to keep field defs compact ---------------------------- */
-	$txt  = function ( $key, $label, $default = '' ) {
-		return array( 'key' => $key, 'label' => $label, 'name' => preg_replace( '/^field_/', '', $key ), 'type' => 'text', 'default_value' => $default );
+	/* ---- helpers: ($key, $name, $label, $default). NAME must match the key the
+	 *      template reads via web_f()/web_opt()/$row[...] — NOT derived from key. */
+	$txt  = function ( $key, $name, $label, $default = '' ) {
+		return array( 'key' => $key, 'label' => $label, 'name' => $name, 'type' => 'text', 'default_value' => $default );
 	};
-	$area = function ( $key, $label, $default = '' ) {
-		return array( 'key' => $key, 'label' => $label, 'name' => preg_replace( '/^field_/', '', $key ), 'type' => 'textarea', 'new_lines' => 'wpautop', 'default_value' => $default );
+	$area = function ( $key, $name, $label, $default = '' ) {
+		return array( 'key' => $key, 'label' => $label, 'name' => $name, 'type' => 'textarea', 'new_lines' => 'wpautop', 'default_value' => $default );
 	};
 
 	/* =====================================================================
@@ -120,49 +121,49 @@ add_action( 'acf/init', function () {
 		'fields' => array(
 
 			array( 'key' => 'tab_site_contacts', 'label' => 'Контакти', 'type' => 'tab' ),
-			$txt( 'field_web_phone', 'Телефон (текст)', '(067) 287-00-44' ),
-			$txt( 'field_web_phone_href', 'Телефон (посилання)', 'tel:+380672870044' ),
-			$txt( 'field_web_email', 'Email', 'r.smolin@gmail.com' ),
-			$txt( 'field_web_header_cta', 'Кнопка в хедері', 'Отримати консультацію' ),
+			$txt( 'field_web_phone', 'phone', 'Телефон (текст)', '(067) 287-00-44' ),
+			$txt( 'field_web_phone_href', 'phone_href', 'Телефон (посилання)', 'tel:+380672870044' ),
+			$txt( 'field_web_email', 'email', 'Email', 'r.smolin@gmail.com' ),
+			$txt( 'field_web_header_cta', 'header_cta', 'Кнопка в хедері', 'Отримати консультацію' ),
 
 			array( 'key' => 'tab_site_social', 'label' => 'Соцмережі', 'type' => 'tab' ),
-			$txt( 'field_web_tg', 'Telegram URL', 'https://t.me/' ),
-			$txt( 'field_web_fb', 'Facebook URL', '#' ),
-			$txt( 'field_web_ig', 'Instagram URL', '#' ),
-			$txt( 'field_web_yt', 'YouTube URL', '#' ),
+			$txt( 'field_web_tg', 'social_telegram', 'Telegram URL', 'https://t.me/' ),
+			$txt( 'field_web_fb', 'social_facebook', 'Facebook URL', '#' ),
+			$txt( 'field_web_ig', 'social_instagram', 'Instagram URL', '#' ),
+			$txt( 'field_web_yt', 'social_youtube', 'YouTube URL', '#' ),
 
 			array( 'key' => 'tab_site_nav', 'label' => 'Меню (хедер)', 'type' => 'tab' ),
 			array(
 				'key' => 'field_web_nav', 'label' => 'Пункти меню', 'name' => 'nav_items', 'type' => 'repeater',
 				'button_label' => 'Додати пункт', 'layout' => 'table',
-				'sub_fields' => array( $txt( 'field_web_nav_label', 'Назва' ), $txt( 'field_web_nav_url', 'Посилання' ) ),
+				'sub_fields' => array( $txt( 'field_web_nav_label', 'label', 'Назва' ), $txt( 'field_web_nav_url', 'url', 'Посилання' ) ),
 			),
 			array(
 				'key' => 'field_web_mega', 'label' => 'Мега-меню «Послуги»', 'name' => 'mega_columns', 'type' => 'repeater',
 				'button_label' => 'Додати колонку', 'layout' => 'block',
 				'sub_fields' => array(
-					$txt( 'field_web_mega_title', 'Заголовок колонки' ),
+					$txt( 'field_web_mega_title', 'title', 'Заголовок колонки' ),
 					array(
 						'key' => 'field_web_mega_items', 'label' => 'Пункти', 'name' => 'items', 'type' => 'repeater',
 						'button_label' => 'Додати пункт', 'layout' => 'table',
-						'sub_fields' => array( $txt( 'field_web_mega_item_label', 'Назва' ), $txt( 'field_web_mega_item_url', 'Посилання' ) ),
+						'sub_fields' => array( $txt( 'field_web_mega_item_label', 'label', 'Назва' ), $txt( 'field_web_mega_item_url', 'url', 'Посилання' ) ),
 					),
 				),
 			),
 
 			array( 'key' => 'tab_site_footer', 'label' => 'Футер', 'type' => 'tab' ),
-			$area( 'field_web_footer_tagline', 'Опис під логотипом', 'Юридичний захист, консультації та повний супровід — з акцентом на результат.' ),
+			$area( 'field_web_footer_tagline', 'footer_tagline', 'Опис під логотипом', 'Юридичний захист, консультації та повний супровід — з акцентом на результат.' ),
 			array(
 				'key' => 'field_web_footer_services', 'label' => 'Колонка «Послуги»', 'name' => 'footer_services', 'type' => 'repeater',
 				'button_label' => 'Додати', 'layout' => 'table',
-				'sub_fields' => array( $txt( 'field_web_fs_label', 'Назва' ), $txt( 'field_web_fs_url', 'Посилання' ) ),
+				'sub_fields' => array( $txt( 'field_web_fs_label', 'label', 'Назва' ), $txt( 'field_web_fs_url', 'url', 'Посилання' ) ),
 			),
 			array(
 				'key' => 'field_web_footer_pubs', 'label' => 'Колонка «Публікації»', 'name' => 'footer_publications', 'type' => 'repeater',
 				'button_label' => 'Додати', 'layout' => 'table',
-				'sub_fields' => array( $txt( 'field_web_fp_label', 'Назва' ), $txt( 'field_web_fp_url', 'Посилання' ) ),
+				'sub_fields' => array( $txt( 'field_web_fp_label', 'label', 'Назва' ), $txt( 'field_web_fp_url', 'url', 'Посилання' ) ),
 			),
-			$txt( 'field_web_copyright', 'Копірайт', '© 2015–2026. Адвокат Роман Сімутін. Всі права захищені.' ),
+			$txt( 'field_web_copyright', 'copyright', 'Копірайт', '© 2015–2026. Адвокат Роман Сімутін. Всі права захищені.' ),
 		),
 		'location' => array( array( array( 'param' => 'options_page', 'operator' => '==', 'value' => 'web-settings' ) ) ),
 	) );
@@ -176,27 +177,27 @@ add_action( 'acf/init', function () {
 		'fields' => array(
 
 			array( 'key' => 'tab_home_hero', 'label' => 'Hero', 'type' => 'tab' ),
-			$txt( 'field_home_hero_eyebrow', 'Локація (над заголовком)', 'Київ, Бровари' ),
-			$txt( 'field_home_hero_title', 'Заголовок', 'Адвокат Сімутін Роман' ),
-			$area( 'field_home_hero_text', 'Текст', 'Захист у кримінальних, військових, сімейних справах. Телефонуйте!' ),
-			$txt( 'field_home_hero_cta', 'Кнопка 1 (текст)', 'Отримати консультацію' ),
-			$txt( 'field_home_hero_cta2', 'Кнопка 2 (текст)', 'Послуги' ),
+			$txt( 'field_home_hero_eyebrow', 'hero_eyebrow', 'Локація (над заголовком)', 'Київ, Бровари' ),
+			$txt( 'field_home_hero_title', 'hero_title', 'Заголовок', 'Адвокат Сімутін Роман' ),
+			$area( 'field_home_hero_text', 'hero_text', 'Текст', 'Захист у кримінальних, військових, сімейних справах. Телефонуйте!' ),
+			$txt( 'field_home_hero_cta', 'hero_cta', 'Кнопка 1 (текст)', 'Отримати консультацію' ),
+			$txt( 'field_home_hero_cta2', 'hero_cta2', 'Кнопка 2 (текст)', 'Послуги' ),
 			array( 'key' => 'field_home_hero_image', 'label' => 'Фонове фото (hero)', 'name' => 'hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium' ),
 
 			array( 'key' => 'tab_home_intro', 'label' => 'Досвід та місія', 'type' => 'tab' ),
-			$txt( 'field_home_intro_eyebrow', 'Надзаголовок', 'Досвід та місія' ),
-			$txt( 'field_home_intro_title', 'Заголовок', 'Адвокат із 20-річним стажем' ),
-			$area( 'field_home_intro_text', 'Текст (абзаци)', '' ),
+			$txt( 'field_home_intro_eyebrow', 'intro_eyebrow', 'Надзаголовок', 'Досвід та місія' ),
+			$txt( 'field_home_intro_title', 'intro_title', 'Заголовок', 'Адвокат із 20-річним стажем' ),
+			$area( 'field_home_intro_text', 'intro_text', 'Текст (абзаци)', '' ),
 
 			array( 'key' => 'tab_home_services', 'label' => 'Послуги', 'type' => 'tab' ),
-			$txt( 'field_home_services_eyebrow', 'Надзаголовок', 'Послуги' ),
-			$txt( 'field_home_services_title', 'Заголовок', 'Ключові напрямки юридичного захисту' ),
+			$txt( 'field_home_services_eyebrow', 'services_eyebrow', 'Надзаголовок', 'Послуги' ),
+			$txt( 'field_home_services_title', 'services_title', 'Заголовок', 'Ключові напрямки юридичного захисту' ),
 			array(
 				'key' => 'field_home_services_small', 'label' => 'Картки (малі)', 'name' => 'services_small', 'type' => 'repeater',
 				'button_label' => 'Додати картку', 'layout' => 'block',
 				'sub_fields' => array(
 					array( 'key' => 'field_hss_icon', 'label' => 'Іконка', 'name' => 'icon', 'type' => 'select', 'choices' => $icon_choices ),
-					$txt( 'field_hss_title', 'Заголовок' ), $area( 'field_hss_text', 'Текст' ), $txt( 'field_hss_cta', 'Кнопка', 'Отримати захист' ),
+					$txt( 'field_hss_title', 'title', 'Заголовок' ), $area( 'field_hss_text', 'text', 'Текст' ), $txt( 'field_hss_cta', 'cta', 'Кнопка', 'Отримати захист' ),
 				),
 			),
 			array(
@@ -204,53 +205,53 @@ add_action( 'acf/init', function () {
 				'button_label' => 'Додати картку', 'layout' => 'block',
 				'sub_fields' => array(
 					array( 'key' => 'field_hsw_icon', 'label' => 'Іконка', 'name' => 'icon', 'type' => 'select', 'choices' => $icon_choices ),
-					$txt( 'field_hsw_title', 'Заголовок' ), $area( 'field_hsw_text', 'Текст' ), $txt( 'field_hsw_cta', 'Кнопка' ),
+					$txt( 'field_hsw_title', 'title', 'Заголовок' ), $area( 'field_hsw_text', 'text', 'Текст' ), $txt( 'field_hsw_cta', 'cta', 'Кнопка' ),
 				),
 			),
 
 			array( 'key' => 'tab_home_why', 'label' => 'Переваги', 'type' => 'tab' ),
-			$txt( 'field_home_why_eyebrow', 'Надзаголовок', 'Переваги' ),
-			$txt( 'field_home_why_title', 'Заголовок', 'Чому варто обрати саме адвоката Романа Сімутіна?' ),
+			$txt( 'field_home_why_eyebrow', 'why_eyebrow', 'Надзаголовок', 'Переваги' ),
+			$txt( 'field_home_why_title', 'why_title', 'Заголовок', 'Чому варто обрати саме адвоката Романа Сімутіна?' ),
 			array(
 				'key' => 'field_home_why_items', 'label' => 'Пункти', 'name' => 'why_items', 'type' => 'repeater',
 				'button_label' => 'Додати пункт', 'layout' => 'block',
-				'sub_fields' => array( $txt( 'field_hwi_title', 'Заголовок' ), $area( 'field_hwi_text', 'Текст' ) ),
+				'sub_fields' => array( $txt( 'field_hwi_title', 'title', 'Заголовок' ), $area( 'field_hwi_text', 'text', 'Текст' ) ),
 			),
 			array( 'key' => 'field_home_why_image', 'label' => 'Фото', 'name' => 'why_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium' ),
 
 			array( 'key' => 'tab_home_cases', 'label' => 'Виграні справи', 'type' => 'tab' ),
-			$txt( 'field_home_cases_eyebrow', 'Надзаголовок', 'Практика' ),
-			$txt( 'field_home_cases_title', 'Заголовок', 'Виграні справи' ),
+			$txt( 'field_home_cases_eyebrow', 'cases_eyebrow', 'Надзаголовок', 'Практика' ),
+			$txt( 'field_home_cases_title', 'cases_title', 'Заголовок', 'Виграні справи' ),
 			array( 'key' => 'field_home_cases_note', 'label' => '', 'type' => 'message', 'message' => 'Картки беруться з розділу «Виграні справи» (CPT).' ),
 
 			array( 'key' => 'tab_home_stats', 'label' => 'Статистика', 'type' => 'tab' ),
-			$txt( 'field_home_stats_eyebrow', 'Надзаголовок', 'Цифри' ),
-			$txt( 'field_home_stats_title', 'Заголовок', 'Статистика та реальні досягнення' ),
-			$area( 'field_home_stats_lead', 'Опис', 'Ми оперуємо цифрами, які підтверджують нашу ефективність. Кожен відсоток – це реальна доля людини, яку вдалося змінити на краще.' ),
+			$txt( 'field_home_stats_eyebrow', 'stats_eyebrow', 'Надзаголовок', 'Цифри' ),
+			$txt( 'field_home_stats_title', 'stats_title', 'Заголовок', 'Статистика та реальні досягнення' ),
+			$area( 'field_home_stats_lead', 'stats_lead', 'Опис', 'Ми оперуємо цифрами, які підтверджують нашу ефективність. Кожен відсоток – це реальна доля людини, яку вдалося змінити на краще.' ),
 			array(
 				'key' => 'field_home_stats_items', 'label' => 'Показники', 'name' => 'stats_items', 'type' => 'repeater',
 				'button_label' => 'Додати показник', 'layout' => 'table',
-				'sub_fields' => array( $txt( 'field_hsi_value', 'Значення (%)' ), $txt( 'field_hsi_label', 'Підпис' ) ),
+				'sub_fields' => array( $txt( 'field_hsi_value', 'value', 'Значення (%)' ), $txt( 'field_hsi_label', 'label', 'Підпис' ) ),
 			),
 
 			array( 'key' => 'tab_home_faq', 'label' => 'FAQ', 'type' => 'tab' ),
-			$txt( 'field_home_faq_eyebrow', 'Надзаголовок', 'FAQ' ),
-			$txt( 'field_home_faq_title', 'Заголовок', 'Часті запитання' ),
+			$txt( 'field_home_faq_eyebrow', 'faq_eyebrow', 'Надзаголовок', 'FAQ' ),
+			$txt( 'field_home_faq_title', 'faq_title', 'Заголовок', 'Часті запитання' ),
 			array(
 				'key' => 'field_home_faq_items', 'label' => 'Запитання', 'name' => 'faq_items', 'type' => 'repeater',
 				'button_label' => 'Додати запитання', 'layout' => 'block',
-				'sub_fields' => array( $txt( 'field_hfi_q', 'Запитання' ), $area( 'field_hfi_a', 'Відповідь' ) ),
+				'sub_fields' => array( $txt( 'field_hfi_q', 'q', 'Запитання' ), $area( 'field_hfi_a', 'a', 'Відповідь' ) ),
 			),
 
 			array( 'key' => 'tab_home_blog', 'label' => 'Блог', 'type' => 'tab' ),
-			$txt( 'field_home_blog_eyebrow', 'Надзаголовок', 'Блог' ),
-			$txt( 'field_home_blog_title', 'Заголовок', 'Статті та публікації' ),
+			$txt( 'field_home_blog_eyebrow', 'blog_eyebrow', 'Надзаголовок', 'Блог' ),
+			$txt( 'field_home_blog_title', 'blog_title', 'Заголовок', 'Статті та публікації' ),
 			array( 'key' => 'field_home_blog_note', 'label' => '', 'type' => 'message', 'message' => 'Картки беруться з останніх записів блогу (Записи).' ),
 
 			array( 'key' => 'tab_home_cta', 'label' => 'CTA', 'type' => 'tab' ),
-			$txt( 'field_home_cta_title', 'Заголовок', 'Потрібна допомога?' ),
-			$area( 'field_home_cta_text', 'Текст', 'Ми зможемо її надати.' ),
-			$txt( 'field_home_cta_btn', 'Кнопка (текст)', 'Отримати консультацію' ),
+			$txt( 'field_home_cta_title', 'cta_title', 'Заголовок', 'Потрібна допомога?' ),
+			$area( 'field_home_cta_text', 'cta_text', 'Текст', 'Ми зможемо її надати.' ),
+			$txt( 'field_home_cta_btn', 'cta_btn', 'Кнопка (текст)', 'Отримати консультацію' ),
 		),
 		'location' => array( array( array( 'param' => 'page_type', 'operator' => '==', 'value' => 'front_page' ) ) ),
 		'menu_order' => 0,
@@ -263,9 +264,9 @@ add_action( 'acf/init', function () {
 		'key'    => 'group_web_case',
 		'title'  => __( 'Дані справи', 'web' ),
 		'fields' => array(
-			$txt( 'field_case_tag', 'Тег (категорія)', '' ),
-			$txt( 'field_case_num', 'Номер справи', '' ),
-			$area( 'field_case_excerpt', 'Короткий опис', '' ),
+			$txt( 'field_case_tag', 'case_tag', 'Тег (категорія)', '' ),
+			$txt( 'field_case_num', 'case_num', 'Номер справи', '' ),
+			$area( 'field_case_excerpt', 'case_excerpt', 'Короткий опис', '' ),
 		),
 		'location' => array( array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'case' ) ) ),
 		'position' => 'acf_after_title',
