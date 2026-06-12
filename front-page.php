@@ -44,7 +44,10 @@ $reasons = web_rows( 'why_items', array(
 	array( 'title' => __( 'Команда експертів', 'web' ),          'text' => __( 'Кожну справу супроводжую персонально я або вузькопрофільні спеціалісти під моїм особистим контролем.', 'web' ) ),
 	array( 'title' => __( 'Складні та безнадійні справи', 'web' ), 'text' => __( 'Ми не боїмося братися за справи, від яких відмовилися інші адвокати Києва.', 'web' ) ),
 ) );
-$why_image = web_f( 'why_image', $img . '/why.jpg' );
+$why_image  = web_f( 'why_image', $img . '/why.jpg' );
+
+/* Hero background — ACF image overrides the CSS default (inc/assets/img/hero.png). */
+$hero_image = web_f( 'hero_image', '' );
 
 /* ---- Won cases — from the `case` CPT (fallback: Figma demo) ---------- */
 $cases   = array();
@@ -124,7 +127,7 @@ if ( empty( $articles ) ) {
 <main id="primary" class="site-main front-page">
 
 	<!-- ============ HERO ============ -->
-	<section class="fp-hero">
+	<section class="fp-hero"<?php echo $hero_image ? ' style="background-image:url(' . esc_url( $hero_image ) . ')"' : ''; ?>>
 		<div class="container fp-hero__inner">
 			<div class="fp-hero__content">
 				<span class="fp-hero__eyebrow">

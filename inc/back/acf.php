@@ -181,6 +181,7 @@ add_action( 'acf/init', function () {
 			$area( 'field_home_hero_text', 'Текст', 'Захист у кримінальних, військових, сімейних справах. Телефонуйте!' ),
 			$txt( 'field_home_hero_cta', 'Кнопка 1 (текст)', 'Отримати консультацію' ),
 			$txt( 'field_home_hero_cta2', 'Кнопка 2 (текст)', 'Послуги' ),
+			array( 'key' => 'field_home_hero_image', 'label' => 'Фонове фото (hero)', 'name' => 'hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium' ),
 
 			array( 'key' => 'tab_home_intro', 'label' => 'Досвід та місія', 'type' => 'tab' ),
 			$txt( 'field_home_intro_eyebrow', 'Надзаголовок', 'Досвід та місія' ),
