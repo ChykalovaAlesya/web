@@ -162,6 +162,9 @@ function web_scripts() {
         wp_enqueue_style('geologica-font', 'https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap', array(), null);
     }
 
+    // Inter — design-system font (Figma)
+    wp_enqueue_style( 'inter-font', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap', array(), null );
+
     // Swiper
     wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), null );
     wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), null, true );
@@ -201,6 +204,11 @@ require get_template_directory() . '/inc/back/template-functions.php';
  * Custom.
  */
 require get_template_directory() . '/inc/back/cust.php';
+
+/**
+ * ACF: options page, "Виграні справи" CPT, homepage + site field groups.
+ */
+require get_template_directory() . '/inc/back/acf.php';
 
 
 /**

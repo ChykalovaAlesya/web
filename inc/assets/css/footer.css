@@ -1,0 +1,83 @@
+/* =========================================================
+   FOOTER  (Figma: "Footer" component — gold on dark navy)
+   Tokens (--home-bg, --gold, --muted, --muted-2, --hairline)
+   are declared in cust.css :root.
+   ========================================================= */
+.site-footer {
+  background: var(--home-bg, #0A0F1C);
+  color: var(--muted, #9CA3AF);
+  font-family: "Inter", sans-serif;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 64px 0 40px;
+}
+
+/* ---- Brand column ---- */
+.footer-col--brand { max-width: 320px; }
+.footer-logo { margin-bottom: 20px; }
+.footer-logo img { max-height: 56px; width: auto; }
+.footer-logo .text-logo { display: inline-flex; flex-direction: column; line-height: 1.1; text-decoration: none; }
+.footer-logo .text-logo__name { font-weight: 700; font-size: 20px; color: var(--light, #fff); letter-spacing: .02em; }
+.footer-logo .text-logo__role { font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: var(--gold, #C2A56D); }
+.footer-tagline { margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted, #9CA3AF); }
+
+/* ---- Link columns ---- */
+.footer-col__title {
+  margin: 0 0 18px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--light, #fff);
+}
+.footer-list,
+.footer-contacts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-list a,
+.footer-contacts a {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted, #9CA3AF);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.footer-list a:hover,
+.footer-contacts a:hover { color: var(--gold, #C2A56D); }
+
+/* ---- Contacts ---- */
+.footer-contacts a { display: inline-flex; align-items: center; gap: 10px; }
+.footer-contacts svg { flex: 0 0 auto; color: var(--gold, #C2A56D); }
+
+.footer-socials { display: flex; gap: 10px; margin-top: 22px; }
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--light, #fff);
+  background: var(--home-card-2, #1F2937);
+  border: 1px solid var(--hairline, rgba(255,255,255,.08));
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.footer-social:hover { transform: translateY(-2px); }
+/* Telegram = gold accent (matches Figma) */
+.footer-social--telegram { background: var(--gold, #C2A56D); border-color: var(--gold, #C2A56D); color: var(--home-bg, #0A0F1C); }
+.footer-social--telegram:hover { background: var(--gold-2, #B0925A); }
+.footer-social:not(.footer-social--telegram):hover { color: var(--gold, #C2A56D); border-color: var(--gold, #C2A56D); }
+
+/* ---- Bottom bar ---- */
+.footer-bottom { border-top: 1px solid var(--hairline, rgba(255,255,255,.08)); padding: 22px 0; }
+.footer-copy { margin: 0; text-align: center; font-size: 12px; line-height: 16px; color: var(--muted-2, #6B7280); }
+
+/* ---- Responsive ---- */
+@media (max-width: 992px) {
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px 24px; padding: 48px 0 32px; }
+  .footer-col--brand { grid-column: 1 / -1; max-width: none; }
+}
+@media (max-width: 560px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+}

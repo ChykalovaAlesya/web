@@ -39,12 +39,104 @@
   }
   
   /* Кнопка закрытия */
-  .popup-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+  .close-popup {
     position: absolute;
-    top: 10px;
-    right: 10px;
-  } 
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    line-height: 0;
+    z-index: 2;
+  }
+
+  /* ---------- Dark themed popups ---------- */
+  .popup-telegram,
+  .popup-service,
+  #mob-menu {
+    background: var(--home-card, #111E2C);
+    color: var(--light, #EAEEF2);
+    border: 1px solid rgba(255, 255, 255, .08);
+  }
+  .popup-telegram,
+  .popup-service { border-radius: 18px; }
+
+  /* ---------- Telegram modal ---------- */
+  .popup-telegram { max-width: 420px; }
+  .tg-modal { text-align: center; padding: 14px 14px 6px; }
+  .tg-modal__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(201, 168, 107, .14);
+    color: var(--gold, #C9A86B);
+    margin-bottom: 18px;
+  }
+  .tg-modal__title { font-size: 22px; font-weight: 700; margin: 0 0 10px; }
+  .tg-modal__text { font-size: 14.5px; line-height: 1.55; color: var(--muted, #8A95A0); margin: 0 0 24px; }
+  .tg-modal__actions { display: grid; gap: 12px; }
+
+  /* ---------- Service side panel ---------- */
+  .popup-service {
+    top: 0;
+    right: 0;
+    left: auto;
+    transform: none;
+    height: 100%;
+    width: 100%;
+    max-width: 560px;
+    border-radius: 0;
+    overflow-y: auto;
+    padding: clamp(28px, 4vw, 56px);
+    animation: panelIn .32s ease;
+  }
+  @keyframes panelIn {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+  }
+  .service-panel__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(201, 168, 107, .14);
+    color: var(--gold, #C9A86B);
+    margin-bottom: 24px;
+  }
+  .service-panel__title { font-size: clamp(1.3rem, 1rem + 1.2vw, 1.8rem); font-weight: 700; margin: 0 0 18px; line-height: 1.25; }
+  .service-panel__lead { font-size: 15px; line-height: 1.6; color: rgba(234, 238, 242, .82); margin: 0 0 18px; }
+  .service-panel__list { margin: 0 0 22px; padding-left: 20px; display: grid; gap: 10px; }
+  .service-panel__list li { font-size: 14.5px; line-height: 1.55; color: rgba(234, 238, 242, .82); }
+  .service-panel__list li::marker { color: var(--gold, #C9A86B); }
+  .service-panel__outro { font-size: 14.5px; line-height: 1.6; color: var(--muted, #8A95A0); margin: 0 0 28px; }
+
+  /* ---------- Mobile menu ---------- */
+  #mob-menu { max-width: 380px; width: 92%; border-radius: 16px; }
+  .mob-menu-logo img { max-height: 44px; width: auto; margin-bottom: 24px; }
+  .mob-menu-list { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 4px; }
+  .mob-menu-list a {
+    display: block;
+    padding: 12px 0;
+    color: var(--light, #EAEEF2);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+  }
+  .mob-menu-list a:hover { color: var(--gold, #C9A86B); }
+  .mob-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold, #C9A86B);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  /* ---------- Thank you ---------- */
+  #thankyouPopup .thank { text-align: center; }
+  #thankyouPopup .thank h2 { margin-top: 0; }

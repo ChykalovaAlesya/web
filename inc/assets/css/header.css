@@ -1,32 +1,202 @@
+/* =========================================================
+   HEADER
+   ========================================================= */
 header#masthead {
-    padding: clamp(0.625rem, 0.5854rem + 0.1626vw, 0.75rem) 0;
-    background-color: #EBF3FF;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  header#masthead .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .home header#masthead {
-    background: rgba(15, 25, 31, 0.30);
-  }
-  header#masthead.sticky {
-    background-color: #EBF3FF;
-    z-index: 999;
-    top: 0;
-    position: sticky;
+  padding: 18px 0;
+  background-color: var(--home-bg, #0B1622);
+  transition: background-color .3s ease;
+  position: relative;
+  z-index: 900;
 }
-#primary-menu .menu-item a,
-.sticky .menu-item a {
+
+header#masthead .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* On the homepage the header overlays the hero */
+.home header#masthead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+header#masthead.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: var(--home-bg, #0B1622);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+  padding: 12px 0;
+}
+
+/* ---- Branding ---- */
+.site-branding .custom-logo-link img { max-height: 48px; width: auto; }
+
+.text-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+  text-decoration: none;
+  color: var(--White);
+}
+.text-logo__name {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.text-logo__role {
+  font-size: 10px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold, #C9A86B);
+}
+
+/* ---- Primary nav ---- */
+.main-navigation { flex: 1; display: flex; justify-content: center; }
+
+.primary-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 34px);
+}
+.primary-menu > .menu-item > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 16px;
   font-weight: 500;
-  line-height: 125%;
-  text-transform: uppercase;
-  color: var(--Black);
-}
-.home #primary-menu .menu-item a {
   color: var(--White);
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color .2s ease;
+}
+.primary-menu > .menu-item > a:hover { color: var(--gold, #C9A86B); }
+.primary-menu .menu-arrow { width: 14px; height: 14px; transition: transform .25s ease; }
+.primary-menu .menu-arrow path { fill: currentColor; }
+
+/* ---- Mega dropdown ---- */
+.has-mega { position: static; }
+
+.mega-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: var(--home-card, #111E2C);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, .45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index: 950;
+}
+.has-mega:hover .mega-menu,
+.has-mega:focus-within .mega-menu,
+.has-mega.is-open .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.has-mega:hover > .mega-toggle .menu-arrow,
+.has-mega.is-open > .mega-toggle .menu-arrow { transform: rotate(180deg); }
+
+.mega-menu__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+.mega-col__title {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold, #C9A86B);
+}
+.mega-col__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.mega-col__list a {
+  color: rgba(255, 255, 255, .78);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: color .2s ease;
+}
+.mega-col__list a:hover { color: var(--White); }
+
+/* ---- Header actions ---- */
+.header-actions { display: flex; align-items: center; gap: 18px; }
+
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--White);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.header-phone:hover { color: var(--gold, #C9A86B); }
+.header-phone .ico-phone { color: var(--gold, #C9A86B); }
+
+/* ---- Search ---- */
+.header-search { display: flex; align-items: center; position: relative; }
+.header-search__toggle {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--White);
+  display: inline-flex;
+  padding: 4px;
+}
+.header-search__toggle:hover { color: var(--gold, #C9A86B); }
+.header-search__field {
+  width: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 999px;
+  color: var(--White);
+  font-size: 14px;
+  transition: width .3s ease, opacity .3s ease, padding .3s ease;
+}
+.header-search.is-open .header-search__field {
+  width: 220px;
+  padding: 10px 18px;
+  opacity: 1;
+  pointer-events: auto;
+  border: 1px solid rgba(255, 255, 255, .12);
+}
+.header-search.is-open .header-search__toggle { order: 2; }
+.header-search__field::placeholder { color: rgba(255, 255, 255, .5); }
+
+/* ---- Burger (mobile only) ---- */
+.menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 4px; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1100px) {
+  .header-phone span { display: none; }
+}
+@media (max-width: 992px) {
+  .main-navigation,
+  .header-search,
+  .header-phone { display: none; }
+  .menu-toggle { display: inline-flex; }
+  .home header#masthead { position: absolute; }
 }

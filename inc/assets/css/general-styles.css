@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 main {
   display: block;
@@ -20,8 +20,12 @@ a.custom-logo-link {
 }
 
 .container {
-  padding-left: clamp(1rem, -1.1348rem + 8.7582vw, 9.375rem);
-  padding-right: clamp(1rem, -1.1348rem + 8.7582vw, 9.375rem);
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
 }
 
 @media (max-width: 768px) {
