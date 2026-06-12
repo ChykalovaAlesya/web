@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.1' );
+	define( '_S_VERSION', '1.0.2' );
 }
 
 /**
@@ -146,7 +146,7 @@ add_action('after_setup_theme', function() {
  */
 function web_scripts() {
     // Получаем выбранный шрифт из настроек кастомайзера
-    $font_choice = get_theme_mod('web_font_choice', 'Montserrat');
+    $font_choice = get_theme_mod('web_font_choice', 'Inter');
 
     // Подключаем соответствующий шрифт
     if ( $font_choice === 'Montserrat' ) {

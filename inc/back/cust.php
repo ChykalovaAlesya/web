@@ -37,7 +37,7 @@ add_shortcode('svg_icon', 'svg_icon_shortcode');
 function web_customize_register( $wp_customize ) {
     // Добавляем настройку для выбора шрифта
     $wp_customize->add_setting( 'web_font_choice', array(
-        'default'   => 'Montserrat',
+        'default'   => 'Inter',
         'transport' => 'refresh', // Обновляет страницу при выборе другого шрифта
     ));
     
@@ -54,6 +54,7 @@ function web_customize_register( $wp_customize ) {
         'settings'   => 'web_font_choice',
         'type'       => 'select',
         'choices'    => array(
+            'Inter'      => 'Inter',
             'Montserrat' => 'Montserrat',
             'Roboto'     => 'Roboto',
             'Open Sans'  => 'Open Sans',
@@ -64,7 +65,7 @@ function web_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'web_customize_register' );
 function web_custom_fonts() {
-    $font_choice = get_theme_mod('web_font_choice', 'Montserrat');
+    $font_choice = get_theme_mod('web_font_choice', 'Inter');
     ?>
     <style>
         body {

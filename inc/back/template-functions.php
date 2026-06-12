@@ -129,8 +129,12 @@ add_action('wp_default_scripts', function ($scripts) {
 /**
  * Ограничение количества ревизий постов и изменение интервала автосохранения
  */
-define('WP_POST_REVISIONS', 3); // Устанавливаем максимальное количество ревизий
-define('AUTOSAVE_INTERVAL', 600); // Изменение интервала автосохранения на 10 минут
+if ( ! defined( 'WP_POST_REVISIONS' ) ) {
+    define( 'WP_POST_REVISIONS', 3 ); // Устанавливаем максимальное количество ревизий
+}
+if ( ! defined( 'AUTOSAVE_INTERVAL' ) ) {
+    define( 'AUTOSAVE_INTERVAL', 600 ); // Изменение интервала автосохранения на 10 минут
+}
 
 /**
  * Отключение комментариев
