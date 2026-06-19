@@ -4,16 +4,16 @@
    are declared in cust.css :root.
    ========================================================= */
 .site-footer {
-  background: var(--home-bg, #0A0F1C);
+  background: #0F141F;                 /* Figma footer bg */
   color: var(--muted, #9CA3AF);
   font-family: "Inter", sans-serif;
 }
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr); /* Figma: 4 equal columns */
   gap: 32px;
-  padding: 64px 0 40px;
+  padding-block: 64px;                  /* horizontal padding comes from .container */
 }
 
 /* ---- Brand column ---- */
@@ -50,13 +50,13 @@
 .footer-contacts a { display: inline-flex; align-items: center; gap: 10px; }
 .footer-contacts svg { flex: 0 0 auto; color: var(--gold, #C2A56D); }
 
-.footer-socials { display: flex; gap: 10px; margin-top: 22px; }
+.footer-socials { display: flex; gap: 12px; margin-top: 22px; }
 .footer-social {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   color: var(--light, #fff);
   background: var(--home-card-2, #1F2937);

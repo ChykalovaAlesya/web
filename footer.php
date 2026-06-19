@@ -31,10 +31,10 @@ $footer_pubs = web_rows( 'footer_publications', array(
 ), 'option' );
 
 $socials = array(
-	'telegram'  => web_opt( 'social_telegram', '' ),
 	'facebook'  => web_opt( 'social_facebook', '' ),
 	'instagram' => web_opt( 'social_instagram', '' ),
 	'youtube'   => web_opt( 'social_youtube', '' ),
+	'telegram'  => web_opt( 'social_telegram', '' ), // gold accent, last per Figma
 );
 ?>
 

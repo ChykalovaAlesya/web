@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.4' );
+	define( '_S_VERSION', '1.1.15' );
 }
 
 /**
@@ -191,6 +191,99 @@ add_action( 'wp_enqueue_scripts', 'web_scripts' );
 
 
 /**
+ * First post category name that isn't the "Виграні справи" bucket (used as the
+ * card tag / breadcrumb sub-section).
+ */
+function web_post_subcat( $post_id, $exclude = 'vyhrani-spravy' ) {
+	foreach ( (array) get_the_category( $post_id ) as $c ) {
+		if ( $c->slug !== $exclude ) {
+			return $c;
+		}
+	}
+	return null;
+}
+
+/** Render a won-case card (matches the homepage .case-card markup). */
+function web_render_case_card( $post_id ) {
+	$tag = web_f( 'case_tag', '', $post_id );
+	if ( ! $tag ) {
+		$sub = web_post_subcat( $post_id );
+		$tag = $sub ? $sub->name : '';
+	}
+	$num  = web_f( 'case_num', '', $post_id );
+	$text = web_f( 'case_excerpt', get_the_title( $post_id ), $post_id );
+	$img  = get_the_post_thumbnail_url( $post_id, 'large' );
+	?>
+	<article class="case-card">
+		<div class="case-card__media">
+			<?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $tag ); ?>" loading="lazy" onerror="this.style.display='none';this.parentNode.classList.add('is-empty')"><?php endif; ?>
+		</div>
+		<div class="case-card__body">
+			<div class="case-card__meta">
+				<?php if ( $tag ) : ?><span class="case-card__tag"><?php echo esc_html( $tag ); ?></span><?php endif; ?>
+				<?php if ( $num ) : ?><span class="case-card__num"><?php echo esc_html( $num ); ?></span><?php endif; ?>
+			</div>
+			<h3 class="case-card__title"><?php echo esc_html( $text ); ?></h3>
+			<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>" class="case-card__cta">
+				<?php esc_html_e( 'Детальніше', 'web' ); ?><?php echo get_svg_icon( 'arrow-right' ); ?>
+			</a>
+		</div>
+	</article>
+	<?php
+}
+
+/** Render a blog post card (matches the homepage .article-card markup). */
+function web_render_article_card( $post_id ) {
+	$sub  = web_post_subcat( $post_id );
+	$cat  = $sub ? $sub->name : '';
+	$img  = get_the_post_thumbnail_url( $post_id, 'medium_large' );
+	?>
+	<article class="article-card">
+		<div class="article-card__media">
+			<?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" loading="lazy" onerror="this.style.display='none';this.parentNode.classList.add('is-empty')"><?php endif; ?>
+		</div>
+		<div class="article-card__body">
+			<div class="article-card__meta">
+				<?php if ( $cat ) : ?><span class="article-card__cat"><?php echo esc_html( $cat ); ?></span><?php endif; ?>
+				<span class="article-card__date"><?php echo esc_html( get_the_date( 'j F Y', $post_id ) ); ?></span>
+			</div>
+			<h3 class="article-card__title"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
+			<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>" class="article-card__more">
+				<?php esc_html_e( 'Подробиці', 'web' ); ?><?php echo get_svg_icon( 'arrow-right' ); ?>
+			</a>
+		</div>
+	</article>
+	<?php
+}
+
+/**
+ * URL of the "Онлайн консультація" page (used by all "Отримати консультацію" CTAs).
+ */
+function web_consult_url() {
+	static $url = null;
+	if ( null !== $url ) {
+		return $url;
+	}
+	$p   = get_posts( array( 'post_type' => 'page', 'name' => 'online-konsultatsiya', 'posts_per_page' => 1, 'fields' => 'ids' ) );
+	$url = $p ? get_permalink( $p[0] ) : home_url( '/online-konsultatsiya/' );
+	return $url;
+}
+
+/**
+ * Disable Contact Form 7 auto-paragraphs for the styled "Онлайн консультація"
+ * form so its custom markup (.ccf__*) is not broken by injected <p>/<br>.
+ */
+add_filter( 'wpcf7_autop_or_not', function ( $enabled ) {
+	if ( class_exists( 'WPCF7_ContactForm' ) ) {
+		$cf = WPCF7_ContactForm::get_current();
+		if ( $cf && 'Онлайн консультація' === $cf->title() ) {
+			return false;
+		}
+	}
+	return $enabled;
+} );
+
+/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/back/template-tags.php';
@@ -209,6 +302,11 @@ require get_template_directory() . '/inc/back/cust.php';
  * ACF: options page, "Виграні справи" CPT, homepage + site field groups.
  */
 require get_template_directory() . '/inc/back/acf.php';
+
+/**
+ * Mega-menu walker for the primary navigation.
+ */
+require get_template_directory() . '/inc/back/nav-walker.php';
 
 
 /**

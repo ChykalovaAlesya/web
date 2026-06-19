@@ -2,8 +2,8 @@
    HEADER
    ========================================================= */
 header#masthead {
-  padding: 18px 0;
-  background-color: var(--home-bg, #0B1622);
+  padding: 16px 0;                       /* Figma py-16 */
+  background-color: #080D16;             /* Figma header bg */
   transition: background-color .3s ease;
   position: relative;
   z-index: 900;
@@ -31,7 +31,7 @@ header#masthead.sticky {
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: var(--home-bg, #0B1622);
+  background-color: #080D16;
   box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
   padding: 12px 0;
 }
@@ -68,21 +68,22 @@ header#masthead.sticky {
   padding: 0;
   display: flex;
   align-items: center;
-  gap: clamp(16px, 2vw, 34px);
+  gap: 32px;                             /* Figma nav gap */
 }
 .primary-menu > .menu-item > a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 16px;
-  font-weight: 500;
+  gap: 4px;
+  font-size: 14px;                       /* Figma link 14/20 regular */
+  line-height: 20px;
+  font-weight: 400;
   color: var(--White);
   text-decoration: none;
   padding: 8px 0;
   transition: color .2s ease;
 }
 .primary-menu > .menu-item > a:hover { color: var(--gold, #C9A86B); }
-.primary-menu .menu-arrow { width: 14px; height: 14px; transition: transform .25s ease; }
+.primary-menu .menu-arrow { width: 16px; height: 16px; transition: transform .25s ease; }
 .primary-menu .menu-arrow path { fill: currentColor; }
 
 /* ---- Mega dropdown (contained card under «Послуги», per Figma) ---- */
@@ -93,7 +94,7 @@ header#masthead.sticky {
   left: 0;
   right: auto;
   top: calc(100% + 14px);
-  width: min(300px, 92vw);
+  width: min(435px, 92vw);
   background: var(--home-card, #111E2C);
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 16px;
@@ -123,49 +124,86 @@ header#masthead.sticky {
 .has-mega:hover > .mega-toggle .menu-arrow,
 .has-mega.is-open > .mega-toggle .menu-arrow { transform: rotate(180deg); }
 
-/* the dropdown is a self-contained card — single column, neutralize .container */
+/* the dropdown is a self-contained card — single column, neutralize .container
+   (matches Figma 403-4800: 435px card, 25px pad, 16px gap between groups). */
 .mega-menu .mega-menu__inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
+  gap: 16px;
   max-width: none;
   width: auto;
   margin: 0;
-  padding: 24px 28px;
+  padding: 18px 25px;
 }
 .mega-col__title {
-  margin: 0 0 10px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 700;
   color: var(--White, #fff);
 }
-.mega-col__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.mega-col__list a {
-  color: rgba(255, 255, 255, .78);
+/* sub-links indented 16px under the category title (per Figma).
+   The selectors are prefixed with .main-navigation to beat the default _s
+   `.main-navigation ul ul` rules in style.css (which otherwise push the lists
+   off-screen with position:absolute / left:-999em / light background). */
+.main-navigation .mega-col__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 16px;
+  display: grid;
+  gap: 6px;
+  row-gap: 6px;
+  position: static;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  border-left: 1px solid var(--muted-3);
+  padding-inline-start: 16px;
+}
+.main-navigation .mega-col__list a {
+  color: var(--muted, #9CA3AF);
   text-decoration: none;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 20px;
+  width: auto;
   transition: color .2s ease;
 }
+.main-navigation .mega-col__list a:hover { color: var(--White); }
+/* keep the «Послуги» chevron coloured by currentColor (not the _s black fill) */
+.site-header .main-navigation .has-mega .mega-toggle svg path { fill: currentColor; }
 .mega-col__list a:hover { color: var(--White); }
 
 /* ---- Header actions ---- */
-.header-actions { display: flex; align-items: center; gap: 18px; }
+.header-actions { display: flex; align-items: center; gap: 16px; }
+
+/* Compact gold CTA in the header (Figma 898-4372): 14/500, 8×16, radius 8 —
+   scoped so the global .btn (used elsewhere) is untouched. */
+.header-actions .btn--gold {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  gap: 8px;
+}
 
 .header-phone {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   color: var(--White);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
   white-space: nowrap;
 }
 .header-phone:hover { color: var(--gold, #C9A86B); }
 .header-phone .ico-phone { color: var(--gold, #C9A86B); }
 
-/* ---- Search ---- */
+/* ---- Search ----
+   The expanding field is absolutely positioned so opening it overlays the bar
+   instead of reflowing it (header layout stays put). */
 .header-search { display: flex; align-items: center; position: relative; }
 .header-search__toggle {
   background: none;
@@ -174,31 +212,47 @@ header#masthead.sticky {
   color: var(--White);
   display: inline-flex;
   padding: 4px;
+  position: relative;
+  z-index: 6; /* stays clickable above the overlay field */
 }
 .header-search__toggle:hover { color: var(--gold, #C9A86B); }
+/* when open the magnifier moves to the LEFT inside the pill (per Figma) */
+.header-search.is-open .header-search__toggle {
+  position: absolute;
+  right: 210px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted, #9CA3AF);
+  z-index: 6;
+}
 .header-search__field {
+  /* position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%); */
+  box-sizing: border-box;
   width: 0;
   padding: 0;
   border: 0;
   opacity: 0;
   pointer-events: none;
-  background: rgba(255, 255, 255, .06);
-  border-radius: 999px;
+  background: #0F141F;            /* Figma: page bg */
+  border-radius: 32px;            /* pill */
   color: var(--White);
   font-size: 14px;
-  transition: width .3s ease, opacity .3s ease, padding .3s ease;
+  line-height: 20px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .4);
+  transition: width .3s ease, opacity .25s ease, padding .3s ease;
+  z-index: 5;
 }
 .header-search.is-open .header-search__field {
-  width: 220px;
-  padding: 10px 18px;
+  width: 248px;
+  padding: 9px 18px 9px 44px;     /* left room for the magnifier */
   opacity: 1;
   pointer-events: auto;
-  border: 1px solid rgba(255, 255, 255, .12);
+  border: 1px solid #1F283A;      /* Figma border */
 }
-/* keep the magnifier to the LEFT of the field when open (icon-inside look, per Figma) */
-.header-search.is-open { gap: 8px; }
-.header-search.is-open .header-search__toggle { order: 0; color: var(--gold, #C9A86B); }
-.header-search__field::placeholder { color: rgba(255, 255, 255, .5); }
+.header-search__field::placeholder { color: var(--muted, #9CA3AF); }
 
 /* ---- Burger (mobile only) ---- */
 .menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 4px; }

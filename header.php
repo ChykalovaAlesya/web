@@ -91,6 +91,16 @@ $nav_items = web_rows( 'nav_items', array(
 				</div><!-- .site-branding -->
 
 				<nav id="site-navigation" class="main-navigation" aria-label="<?php esc_attr_e('Головне меню', 'web'); ?>">
+					<?php if ( has_nav_menu( 'menu-1' ) ) : ?>
+						<?php wp_nav_menu( array(
+							'theme_location' => 'menu-1',
+							'container'      => false,
+							'menu_class'     => 'primary-menu',
+							'depth'          => 3,
+							'walker'         => new Web_Mega_Walker(),
+							'fallback_cb'    => false,
+						) ); ?>
+					<?php else : ?>
 					<ul class="primary-menu">
 
 						<li class="menu-item menu-item-has-children has-mega">
@@ -125,6 +135,7 @@ $nav_items = web_rows( 'nav_items', array(
 							</li>
 						<?php endforeach; ?>
 					</ul>
+					<?php endif; ?>
 				</nav><!-- #site-navigation -->
 
 				<div class="header-actions">
@@ -133,7 +144,7 @@ $nav_items = web_rows( 'nav_items', array(
 						<span><?php echo esc_html($phone); ?></span>
 					</a>
 
-					<a href="#" class="btn btn--gold open-popup" data-popup-id="telegram">
+					<a href="<?php echo esc_url( web_consult_url() ); ?>" class="btn btn--gold">
 						<?php echo esc_html($header_cta); ?>
 					</a>
 

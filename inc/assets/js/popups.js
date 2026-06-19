@@ -39,6 +39,9 @@ if (openPopupButtons.length > 0) {
     openPopupButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault(); // Отменяем стандартное поведение ссылки
+            // Не даём клику всплыть к внешнему .open-popup (например, кнопка
+            // Telegram внутри карточки-послуги, у которой свой data-popup-id).
+            event.stopPropagation();
             const popupId = this.getAttribute('data-popup-id');
             openPopup(popupId);
         });

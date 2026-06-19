@@ -536,9 +536,9 @@ a {
 	color: var(--Accent);
 }
 
-a:visited {
+/* a:visited {
 	color: var(--Accent);
-}
+} */
 
 a:hover,
 a:focus,

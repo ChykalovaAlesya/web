@@ -1,7 +1,6 @@
 :root {
-  --Text: #717171;
-  --Black: #071D2E;
-  --Accent: #FF637B;
+  --Text: #9CA3AF;
+  --Accent: #C2A56D;
   --White: #ffffff;
   --main-padding: clamp(3.75rem, 2.1569rem + 6.5359vw, 10rem);
   --main-margin: clamp(3.75rem, 2.1569rem + 6.5359vw, 10rem);
@@ -12,8 +11,6 @@ body {
 }
 main {
   display: block;
-  padding-top: 40px;
-  margin-bottom: var(--main-margin);
 }
 a.custom-logo-link {
   display: flex;
@@ -21,7 +18,9 @@ a.custom-logo-link {
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  /* content width = 1280; side padding is ADDED on top (max-width = 1280 + 2×40)
+     so the padding never eats into the 1280 content area. */
+  max-width: 1360px;
   margin-left: auto;
   margin-right: auto;
   padding-left: clamp(16px, 4vw, 40px);

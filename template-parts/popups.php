@@ -16,7 +16,7 @@
             <h2 class="tg-modal__title"><?php echo esc_html__('Напишіть нам в телеграм', 'web'); ?></h2>
             <p class="tg-modal__text"><?php echo esc_html__('Опишіть свою ситуацію — відповімо швидко і підкажемо як діяти.', 'web'); ?></p>
             <div class="tg-modal__actions">
-                <a href="#" class="btn btn--gold btn--block open-popup" data-popup-id="form"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
+                <a href="<?php echo esc_url( web_consult_url() ); ?>" class="btn btn--gold btn--block"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
                 <span class="tg-modal__or"><?php echo esc_html__('Якщо писати не зручно', 'web'); ?></span>
                 <a href="tel:+380672870044" class="btn btn--gold btn--block">
                     <?php echo get_svg_icon('phone'); ?>
@@ -26,33 +26,7 @@
         </div>
     </div>
 
-    <!-- Service side panel -->
-    <div class="popup popup-right popup-service" id="service-panel">
-        <span class="close-popup"><?php echo get_svg_icon('closepopup'); ?></span>
-        <div class="popup-content service-panel">
-            <span class="service-panel__icon"><?php echo get_svg_icon('svc-mil'); ?></span>
-            <h2 class="service-panel__title"><?php echo esc_html__('Військовий адвокат: Мобілізація та ВЛК', 'web'); ?></h2>
-            <p class="service-panel__lead">
-                <?php echo esc_html__('Сьогодні питання військового права є найбільш актуальними. Як адвокат (консультація Київ), я надаю повний спектр послуг щодо взаємодії з ТЦК та СП:', 'web'); ?>
-            </p>
-            <ul class="service-panel__list">
-                <li><?php echo esc_html__('Супровід процедури мобілізації та перевірка підстав для відстрочки.', 'web'); ?></li>
-                <li><?php echo esc_html__('Отримання відстрочки від мобілізації.', 'web'); ?></li>
-                <li><?php echo esc_html__('Оскарження рішень ВЛК (військово-лікарської комісії) та мобілізації у судовому та адміністративному порядку.', 'web'); ?></li>
-                <li><?php echo esc_html__('Захист у випадках незаконного затримання або примусового доставлення до ТЦК.', 'web'); ?></li>
-                <li><?php echo esc_html__('Консультації щодо бронювання працівників та виїзду за кордон.', 'web'); ?></li>
-                <li><?php echo esc_html__('Демобілізація / звільнення зі служби.', 'web'); ?></li>
-                <li><?php echo esc_html__("Виплати військовим (виплати при звільненні, виплати сім'ям загиблих).", 'web'); ?></li>
-            </ul>
-            <p class="service-panel__outro">
-                <?php echo esc_html__("Ми знаємо всі тонкощі оновленого законодавства та забезпечуємо захист конституційних прав військовозобов'язаних.", 'web'); ?>
-            </p>
-            <a href="#" class="btn btn--gold btn--block open-popup" data-popup-id="telegram">
-                <?php echo esc_html__('Отримати захист', 'web'); ?>
-                <?php echo get_svg_icon('arrow-right'); ?>
-            </a>
-        </div>
-    </div>
+    <!-- Service side panels are rendered dynamically per service in front-page.php -->
 
     <!-- Mobile menu -->
     <div class="popup popup-top" id="mob-menu">
@@ -73,7 +47,7 @@
                     <?php echo get_svg_icon('phone'); ?>
                     <span><?php echo esc_html__('(067) 287-00-44', 'web'); ?></span>
                 </a>
-                <a href="#" class="btn btn--gold btn--block open-popup" data-popup-id="telegram"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
+                <a href="<?php echo esc_url( web_consult_url() ); ?>" class="btn btn--gold btn--block"><?php echo esc_html__('Отримати консультацію', 'web'); ?></a>
             </nav>
         </div>
     </div>
