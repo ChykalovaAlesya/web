@@ -145,4 +145,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // --- Telegram button: docked in the hero (Figma) until the hero scrolls
+    // out of view, then floats fixed in the viewport bottom-right. ---
+    (function () {
+        const btn = document.querySelector('.fp-tg-float');
+        const hero = document.querySelector('.fp-hero');
+        if (!btn || !hero) return;
+        function onScroll() {
+            // float once the hero's bottom edge is above the viewport bottom
+            btn.classList.toggle('is-floating', hero.getBoundingClientRect().bottom < window.innerHeight);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        onScroll();
+    })();
 });
